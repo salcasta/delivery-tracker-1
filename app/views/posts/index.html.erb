@@ -1,0 +1,118 @@
+<div>
+  <div>
+    <h1>
+      List of all posts
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new post
+    </h2>
+
+    <form action="/insert_post" method="post">
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description">
+      </div>
+
+      <div>
+        <label for="arrive_on_box">
+          Arrive on
+        </label>
+
+        <input type="date" id="arrive_on_box" name="query_arrive_on">
+      </div>
+
+      <div>
+        <label for="detail_box">
+          Detail
+        </label>
+
+        <input type="text" id="detail_box" name="query_detail">
+      </div>
+
+      <button>
+        Create post
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Description
+        </th>
+
+        <th>
+          Arrive on
+        </th>
+
+        <th>
+          Detail
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_posts.each do |a_post| %>
+      <tr>
+        <td>
+          <%= a_post.id %>
+        </td>
+
+        <td>
+          <%= a_post.description %>
+        </td>
+
+        <td>
+          <%= a_post.arrive_on %>
+        </td>
+
+        <td>
+          <%= a_post.detail %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_post.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_post.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/posts/<%= a_post.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

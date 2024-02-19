@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Post #<%= @the_post.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/posts">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_post/<%= @the_post.id %>">
+          Delete post
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Description
+      </dt>
+      <dd>
+        <%= @the_post.description %>
+      </dd>
+
+      <dt>
+        Arrive on
+      </dt>
+      <dd>
+        <%= @the_post.arrive_on %>
+      </dd>
+
+      <dt>
+        Detail
+      </dt>
+      <dd>
+        <%= @the_post.detail %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_post.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_post.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit post
+    </h2>
+
+    <form action="/modify_post/<%= @the_post.id %>"  method="post" >
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description" value="<%= @the_post.description %>">
+      </div>
+
+      <div>
+        <label for="arrive_on_box">
+          Arrive on
+        </label>
+
+        <input type="date" id="arrive_on_box" name="query_arrive_on" value="<%= @the_post.arrive_on %>">
+      </div>
+
+      <div>
+        <label for="detail_box">
+          Detail
+        </label>
+
+        <input type="text" id="detail_box" name="query_detail" value="<%= @the_post.detail %>">
+      </div>
+
+      <button>
+        Update post
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
