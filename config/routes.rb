@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+  root "posts#index"
+  
   # Routes for the Post resource:
 
   # CREATE

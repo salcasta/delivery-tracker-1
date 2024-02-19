@@ -1,9 +1,10 @@
 <div>
   <div>
     <h1>
-      List of all posts
+      Delivery Tracker
     </h1>
   </div>
+    <p>Know if something gets lost in the mail</p>
 </div>
 
 <hr>
@@ -11,7 +12,7 @@
 <div>
   <div>
     <h2>
-      Add a new post
+      Expecting a package?
     </h2>
 
     <form action="/insert_post" method="post">
@@ -25,7 +26,7 @@
 
       <div>
         <label for="arrive_on_box">
-          Arrive on
+          Supposed to arrive on 
         </label>
 
         <input type="date" id="arrive_on_box" name="query_arrive_on">
@@ -33,86 +34,69 @@
 
       <div>
         <label for="detail_box">
-          Detail
+          Details
         </label>
 
-        <input type="text" id="detail_box" name="query_detail">
+        <textarea name="query_detail" id="detail_box" cols="20" rows="3"></textarea>
+
+        <input type="hidden" name="query_user_id" value="<%= current_user.id %>">
+        <input type="hidden" name="query_arrived" value="false">
       </div>
 
       <button>
-        Create post
+        Log delivery
       </button>
     </form>
   </div>
 </div>
 
 <hr>
-<div>
-  <div>
-    <table border="1">
-      <tr>
-        <th>
-          ID
-        </th>
 
-        <th>
-          Description
-        </th>
+<div class="waiting_on">
+  <h2>Waiting on </h2>
 
-        <th>
-          Arrive on
-        </th>
+  <% @list_of_posts.each do |a_post| %>
+      <ul>
+        <li>
+          <div>
+            <%= a_post.description %>
+          </div>
 
-        <th>
-          Detail
-        </th>
+          <div>
+            <%= "Supposed to arrive on #{a_post.arrive_on}" %>
+          </div>
 
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_posts.each do |a_post| %>
-      <tr>
-        <td>
-          <%= a_post.id %>
-        </td>
-
-        <td>
-          <%= a_post.description %>
-        </td>
-
-        <td>
-          <%= a_post.arrive_on %>
-        </td>
-
-        <td>
-          <%= a_post.detail %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_post.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_post.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/posts/<%= a_post.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
+          <div>
+            <%= a_post.detail %>
+          </div>
+          <div>
+            <form action="/modify_post/<%= a_post.id %>" method="post">
+              <input type="hidden" name="query_arrived" value="true">
+              <button type="submit">Marked as received</button>
+            </form>
+          </div>
+        </li>
+      </ul>
+  <% end %>
 </div>
 
 <hr>
+
+<div class="received">
+  <h2>Received</h2>
+
+  <% @list_of_posts.each do |a_post| %>
+      <ul>
+        <li>
+          <div>
+            <%= a_post.description %>
+          </div>
+
+          <div>
+            <%= a_post.updated_at %>
+            <small><a href="/delete_post/<%= a_post.id %>">Delete</a></small>
+          </div>
+        </li>
+      </ul>
+  <% end %>
+</div>

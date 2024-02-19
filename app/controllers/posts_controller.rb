@@ -22,10 +22,12 @@ class PostsController < ApplicationController
     the_post.description = params.fetch("query_description")
     the_post.arrive_on = params.fetch("query_arrive_on")
     the_post.detail = params.fetch("query_detail")
+    the_post.user_id = params.fetch("query_user_id")
+    the_post.arrived = params.fetch("query_arrived")
 
     if the_post.valid?
       the_post.save
-      redirect_to("/posts", { :notice => "Post created successfully." })
+      redirect_to("/posts", { :notice => "Added to list." })
     else
       redirect_to("/posts", { :alert => the_post.errors.full_messages.to_sentence })
     end
@@ -38,10 +40,11 @@ class PostsController < ApplicationController
     the_post.description = params.fetch("query_description")
     the_post.arrive_on = params.fetch("query_arrive_on")
     the_post.detail = params.fetch("query_detail")
+    the_post.arrived = params.fetch("query_arrived")
 
     if the_post.valid?
       the_post.save
-      redirect_to("/posts/#{the_post.id}", { :notice => "Post updated successfully."} )
+      redirect_to("/posts/#{the_post.id}", { :notice => "Marked as received."} )
     else
       redirect_to("/posts/#{the_post.id}", { :alert => the_post.errors.full_messages.to_sentence })
     end
@@ -53,6 +56,6 @@ class PostsController < ApplicationController
 
     the_post.destroy
 
-    redirect_to("/posts", { :notice => "Post deleted successfully."} )
+    redirect_to("/posts", { :notice => "Deleted."} )
   end
 end
