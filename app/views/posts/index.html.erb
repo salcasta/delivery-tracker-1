@@ -40,7 +40,6 @@
         <textarea name="query_detail" id="detail_box" cols="20" rows="3"></textarea>
 
         <input type="hidden" name="query_user_id" value="<%= current_user.id %>">
-        <input type="hidden" name="query_arrived" value="false">
       </div>
 
       <button>
@@ -72,7 +71,7 @@
           <div>
             <form action="/modify_post/<%= a_post.id %>" method="post">
               <input type="hidden" name="query_arrived" value="true">
-              <button>Marked as received</button>
+              <button>Mark as received</button>
             </form>
           </div>
         </li>
@@ -85,7 +84,7 @@
 <div class="received">
   <h2>Received</h2>
 
-  <% @list_of_posts.each do |a_post| %>
+  <% @list_of_posts_received.each do |a_post| %>
       <ul>
         <li>
           <div>
@@ -93,7 +92,7 @@
           </div>
 
           <div>
-            <%= a_post.updated_at %>
+           Updated <%= time_ago_in_words(a_post.updated_at) %> ago
             <small><a href="/delete_post/<%= a_post.id %>">Delete</a></small>
           </div>
         </li>
